@@ -37,5 +37,4 @@ public class ToDo {
         this.category = category;
         this.post = post;
     }
-
 }

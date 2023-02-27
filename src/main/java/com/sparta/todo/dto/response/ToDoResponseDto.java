@@ -13,7 +13,6 @@ public class ToDoResponseDto {
     private Long postId;
 
 
-
     public ToDoResponseDto(ToDo toDoEntity){
         this.toDoId = toDoEntity.getId();
         this.category = toDoEntity.getCategory();

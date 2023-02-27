@@ -20,7 +20,6 @@ public class LikeService {
     private final LikePostRepository likePostRepository;
     private final PostRepository postRepository;
 
-
     /* Post(하루 일정) 좋아요 기능 */
     @Transactional
     public ResponseEntity<SuccessMessageDto> likePost(Long postId, User user) {

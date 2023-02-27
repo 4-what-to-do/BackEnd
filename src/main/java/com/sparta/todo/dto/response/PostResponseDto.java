@@ -32,4 +32,5 @@ public class PostResponseDto {
         this.likeCount = postEntity.getLikePostList() != null ? postEntity.getLikePostList().size() : 0;
         this.toDoResponseDtoList = toDoResponseDtoList;
     }
+
 }

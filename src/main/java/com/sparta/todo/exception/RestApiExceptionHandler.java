@@ -10,7 +10,6 @@ public class RestApiExceptionHandler {
     public ResponseEntity<ExceptionDto> handleApiRequestException(CustomException ex) {
 
         return ResponseEntity.badRequest().body(new ExceptionDto(ex.getError().getHttpStatus().value(), ex.getError().getErrorCode(), ex.getError().getErrorMessage())
-
         );
     }
 }

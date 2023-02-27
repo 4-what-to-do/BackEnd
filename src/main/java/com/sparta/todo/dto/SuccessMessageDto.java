@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class SuccessMessageDto {
     private String msg;
     private Integer statusCode;
+
 }

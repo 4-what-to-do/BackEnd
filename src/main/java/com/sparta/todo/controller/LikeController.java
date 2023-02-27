@@ -18,6 +18,7 @@ public class LikeController {
         return likeService.likePost(postId,user);
     }
 
+
     /*@GetMapping("/like/{postId}")
     public void LikeCntPost(@PathVariable Long postId){
         likeService.countLikes(postId);

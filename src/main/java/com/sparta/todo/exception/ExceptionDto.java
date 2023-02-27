@@ -8,7 +8,6 @@ import lombok.Getter;
 public class ExceptionDto {
     private int status;
     private String message;
-
     private String code;
 
 }

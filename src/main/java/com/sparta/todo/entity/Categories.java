@@ -15,4 +15,5 @@ public class Categories {
     @Id
     @GeneratedValue
     public Long id;
+
 }

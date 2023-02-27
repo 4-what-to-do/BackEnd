@@ -41,6 +41,5 @@ public class Post {
         this.user = user;
         this.open = open;
     }
-
 }
 
