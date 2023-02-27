@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,13 +21,18 @@ public class Post {
     @Column(nullable = false)
     private String date;
 
+    @Column(nullable = false)
+    private Boolean open;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<ToDo> toDoList = new ArrayList<>();
 
-    @Column(nullable = false)
-    private Boolean open;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<LikePost> likePostList = new ArrayList<>();
 
     //생성 메서드
     @Builder

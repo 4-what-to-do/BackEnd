@@ -31,4 +31,12 @@ public class LikePost {
         this.user = user;
         this.post = post;
     }
+    /*public static LikePost of(Post post, User user) {
+        LikePost likePost = LikePost.builder()
+                .post(post)
+                .user(user)
+                .build();
+        post.getLikePostList().add(likePost);
+        return likePost;
+    }*/
 }
