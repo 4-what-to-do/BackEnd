@@ -37,7 +37,7 @@ public class PostService {
             for(ToDo toDo : toDoList){
                 toDoResponseDtoList.add(new ToDoResponseDto(toDo));
             }
-            if(!post.getOpen().equals(true)){
+            if(post.getOpen().equals(false)){
                 continue;
             }
             postResponseDtoList.add(new PostResponseDto(post,toDoResponseDtoList));
@@ -50,25 +50,48 @@ public class PostService {
     // 카테고리별 일정 조회
     @Transactional
     public List<PostResponseDto> getCategoriesPosts(Category category){
-        List<Post> postsList = postRepository.findAll();
+        /*List<Post> postsList = postRepository.findAll();
         List<PostResponseDto> postResponseDtoList = new ArrayList<>();
 
+        System.out.println("category = " + category);
 
-        for(Post post : postsList){
-            List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(post);
+
+
+        for(int i =0; i<=postsList.size(); i++){
+            List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(postsList.get(i));
             List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
 
             for(ToDo toDo : toDoList){
                 toDoResponseDtoList.add(new ToDoResponseDto(toDo));
             }
-            if(!post.getOpen().equals(true)){
+            if(postsList.get(i).getOpen().equals(false)){
                 continue;
             }
-            if(toDoResponseDtoList.contains(category)){
-                postResponseDtoList.add(new PostResponseDto(post,toDoResponseDtoList));
+            if(toDoResponseDtoList.get(i).getCategory().equals(category)){
+                postResponseDtoList.add(new PostResponseDto(postsList.get(i),toDoResponseDtoList));
             }
         }
         Collections.reverse(postResponseDtoList);
+        return postResponseDtoList;*/
+
+        // toDo먼저 category
+        // 남은걸로 findbyTodo
+
+        List<ToDo> toDoList = toDoRepository.findAllByCategory(category);
+        List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
+        for(ToDo toDo : toDoList){
+            toDoResponseDtoList.add(new ToDoResponseDto(toDo));
+        }
+
+        List<PostResponseDto> postResponseDtoList = new ArrayList<>();
+        for (ToDo toDo : toDoList) {
+            if(toDo.getPost().getOpen().equals(false)){
+                continue;
+            }
+            if(toDo.getPost().getOpen().equals(true)){
+                postResponseDtoList.add(new PostResponseDto(toDo.getPost(),toDoResponseDtoList));
+            }
+        }
         return postResponseDtoList;
     }
 }

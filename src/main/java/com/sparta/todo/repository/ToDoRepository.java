@@ -12,5 +12,6 @@ import java.util.List;
 public interface ToDoRepository extends JpaRepository<ToDo, Long> {
 
     List<ToDo> findAllByPostOrderById(Post post);
-    List<ToDo> findAllByPostOrderByCategory(Category category);
+
+    List<ToDo> findAllByCategory(Category category);
 }

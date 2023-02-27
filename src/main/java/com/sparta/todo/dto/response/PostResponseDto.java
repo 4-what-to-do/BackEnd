@@ -17,7 +17,7 @@ public class PostResponseDto {
     private List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
 
 
-    private PostResponseDto(Post postEntity){
+    public PostResponseDto(Post postEntity){
         this.postId = postEntity.getId();
         this.nickname = postEntity.getUser().getNickname();
         this.date = postEntity.getDate();
