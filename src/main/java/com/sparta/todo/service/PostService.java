@@ -57,7 +57,6 @@ public class PostService {
         for(Post post : postsList){
             List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(post);
             List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
-            Math<Category>
 
             for(ToDo toDo : toDoList){
                 toDoResponseDtoList.add(new ToDoResponseDto(toDo));
@@ -65,7 +64,7 @@ public class PostService {
             if(!post.getOpen().equals(true)){
                 continue;
             }
-            if(toDoResponseDtoList){
+            if(toDoResponseDtoList.contains(category)){
                 postResponseDtoList.add(new PostResponseDto(post,toDoResponseDtoList));
             }
         }
