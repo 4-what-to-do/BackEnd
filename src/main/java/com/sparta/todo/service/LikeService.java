@@ -22,7 +22,6 @@ public class LikeService {
 
 
     /* Post(하루 일정) 좋아요 기능 */
-
     @Transactional
     public ResponseEntity<SuccessMessageDto> likePost(Long postId, User user) {
         Optional<Post> post = postRepository.findById(postId);
