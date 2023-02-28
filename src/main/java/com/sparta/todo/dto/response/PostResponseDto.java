@@ -13,7 +13,7 @@ public class PostResponseDto {
     private String nickname;
     private String date;
     private Boolean open;
-    private Integer likeCount;
+
     private List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
 
 
@@ -29,8 +29,6 @@ public class PostResponseDto {
         this.nickname = postEntity.getUser().getNickname();
         this.date = postEntity.getDate();
         this.open = postEntity.getOpen();
-        this.likeCount = postEntity.getLikePostList() != null ? postEntity.getLikePostList().size() : 0;
         this.toDoResponseDtoList = toDoResponseDtoList;
     }
-
 }

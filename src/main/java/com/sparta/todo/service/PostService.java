@@ -1,12 +1,15 @@
 package com.sparta.todo.service;
 
+import com.sparta.todo.dto.request.PostRequestDto;
 import com.sparta.todo.dto.response.PostResponseDto;
 import com.sparta.todo.dto.response.ToDoResponseDto;
 import com.sparta.todo.entity.Category;
 import com.sparta.todo.entity.Post;
 import com.sparta.todo.entity.ToDo;
+import com.sparta.todo.entity.User;
 import com.sparta.todo.repository.PostRepository;
 import com.sparta.todo.repository.ToDoRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +25,14 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final ToDoRepository toDoRepository;
+
+
+    @Transactional
+    public void createPost(PostRequestDto postRequestDto, User user){
+        if(postRequestDto.getDate().isEmpty()){
+            Post post = postRepository.save(new Post(postRequestDto,user));
+        }
+    }
 
 
 

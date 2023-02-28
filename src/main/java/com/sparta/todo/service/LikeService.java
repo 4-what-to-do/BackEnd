@@ -1,6 +1,7 @@
 package com.sparta.todo.service;
 
 import com.sparta.todo.dto.SuccessMessageDto;
+import com.sparta.todo.dto.response.LikeResponseDto;
 import com.sparta.todo.entity.LikePost;
 import com.sparta.todo.entity.Post;
 import com.sparta.todo.entity.User;
@@ -44,15 +45,15 @@ public class LikeService {
                         .build());
     }
 
-    /* Post(하루 일정) 좋아요 개수 카운팅 */
-    /*@Transactional(readOnly = true)
-    public Long countLikes(Long postId){
+     /*Post(하루 일정) 좋아요 개수 카운팅 */
+    @Transactional(readOnly = true)
+    public LikeResponseDto countLikes(Long postId){
         // like 테이블에서 star_id 조회
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
         );
         Long found = likePostRepository.countAllByPost(post);
 
-        return found;
-    }*/
+        return new LikeResponseDto(found);
+    }
 }

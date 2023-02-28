@@ -1,6 +1,7 @@
 package com.sparta.todo.controller;
 
 import com.sparta.todo.dto.SuccessMessageDto;
+import com.sparta.todo.dto.response.LikeResponseDto;
 import com.sparta.todo.entity.User;
 import com.sparta.todo.service.LikeService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,9 @@ public class LikeController {
         return likeService.likePost(postId,user);
     }
 
+    @GetMapping("/like/{postId}")
+    public LikeResponseDto LikeCntPost(@PathVariable Long postId){
+        return likeService.countLikes(postId);
+    }
 
-    /*@GetMapping("/like/{postId}")
-    public void LikeCntPost(@PathVariable Long postId){
-        likeService.countLikes(postId);
-    }*/
 }

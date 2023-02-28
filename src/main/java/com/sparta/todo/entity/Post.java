@@ -1,5 +1,6 @@
 package com.sparta.todo.entity;
 
+import com.sparta.todo.dto.request.PostRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,15 +32,12 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<ToDo> toDoList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List<LikePost> likePostList = new ArrayList<>();
-
     //생성 메서드
     @Builder
-    public Post(String date, User user, Boolean open){
-        this.date = date;
+    public Post(PostRequestDto postRequestDto, User user){
+        this.date = postRequestDto.getDate();
         this.user = user;
-        this.open = open;
+        this.open = postRequestDto.getOpen();
     }
 }
 
