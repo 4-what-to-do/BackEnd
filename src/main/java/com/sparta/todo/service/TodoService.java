@@ -1,5 +1,6 @@
 package com.sparta.todo.service;
 
+
 import com.sparta.todo.dto.SuccessMessageDto;
 import com.sparta.todo.dto.request.Request;
 import com.sparta.todo.dto.request.ToDoRequestDto;
@@ -24,6 +25,7 @@ import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
+
 public class TodoService {
     private final ToDoRepository toDoRepository;
     private final PostRepository postRepository;
