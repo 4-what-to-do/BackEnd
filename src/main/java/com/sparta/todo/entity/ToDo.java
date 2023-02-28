@@ -42,4 +42,9 @@ public class ToDo {
     public void updateDone(Boolean doneC){
         this.done = doneC;
     }
+
+    public void update(ToDoRequestDto toDoRequestDto){
+        this.content = toDoRequestDto.getContent();
+        this.category = toDoRequestDto.getCategory();
+    }
 }
