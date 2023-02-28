@@ -28,6 +28,12 @@ public class ToDoController {
         return todoService.createToDo(request);
     }
 
+    // 일정 조회
+    @GetMapping("/todo")
+    public List<ToDoResponseDto> readToDo(@RequestParam("date")String date){
+        return todoService.readToDo(date);
+    }
+
     // 일정 완료 체크
     @PutMapping("/todo/done/{todoId}")
     public ToDoResponseDto doneCheck(@PathVariable Long todoId){
@@ -40,7 +46,7 @@ public class ToDoController {
         return todoService.updateToDo(todoId,toDoRequestDto);
     }
 
-    // 일정 완료
+    // 일정 삭제
     @DeleteMapping("/todo/{todoId}")
     public ResponseEntity<SuccessMessageDto> deleteToDo(@PathVariable Long todoId){
         return todoService.deleteToDo(todoId);

@@ -26,7 +26,7 @@ public class PostController {
     }
 
      /*카테고리별 일정 조회 */
-    @GetMapping("/communities/likes")
+    @GetMapping("/communities/category")
     public List<PostResponseDto> readCategoryAllPost(@RequestParam("category")Category category){
 
         return postService.getCategoriesPosts(category);

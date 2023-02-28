@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -48,6 +50,20 @@ public class TodoService {
 
         return new ToDoResponseDto(toDo);
     }
+
+    // 일정 전체 조회
+    @Transactional
+    public List<ToDoResponseDto> readToDo(String date){
+        Optional<Post> found = postRepository.findByDate(date);
+        List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(found.get());
+        List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
+
+        for(ToDo toDo : toDoList){
+            toDoResponseDtoList.add(new ToDoResponseDto(toDo));
+        }
+        return toDoResponseDtoList;
+    }
+
 
     // 일정 수정
     @Transactional
