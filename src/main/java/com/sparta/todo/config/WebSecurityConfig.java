@@ -61,7 +61,7 @@ public class WebSecurityConfig {
 
 
         // 이 설정을 해주지 않으면 밑의 corsConfigurationSource가 적용되지 않습니다!
-        http.cors();
+        http.cors().configurationSource(corsConfigurationSource());
 
         //http.formLogin().loginPage("/api/user/login-page").permitAll();
 
@@ -75,7 +75,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("*");
+        configuration.addAllowedOriginPattern("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);

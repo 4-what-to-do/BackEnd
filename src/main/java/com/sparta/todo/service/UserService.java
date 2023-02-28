@@ -5,6 +5,7 @@ import com.sparta.todo.dto.requestDto.EmailCheckRequestDto;
 import com.sparta.todo.dto.requestDto.LoginRequestDto;
 import com.sparta.todo.dto.requestDto.NicknameCheckRequestDto;
 import com.sparta.todo.dto.requestDto.SignUpRequestDto;
+import com.sparta.todo.dto.responseDto.LoginResponseDto;
 import com.sparta.todo.entity.User;
 import com.sparta.todo.entity.UserRoleEnum;
 import com.sparta.todo.exception.CustomException;
@@ -35,10 +36,8 @@ public class UserService {
     public ResponseEntity<SuccessMessageDto> addUser(SignUpRequestDto requestDto) {
         String email = requestDto.getEmail();
         String nickname = requestDto.getNickname();
-
+        String password = requestDto.getPassword();
         String passwordCheck = requestDto.getPasswordCheck();
-        String password = passwordEncoder.encode(requestDto.getPassword());
-
 
         // email 중복 확인
         Optional<User> foundByEmail = userRepository.findByEmail(email);
@@ -51,6 +50,8 @@ public class UserService {
         // 비밀번호 일치 여부 확인
         if (!passwordCheck.equals(password))
             throw new CustomException(WRONG_PASSWORD_CHECK);
+
+//        password = passwordEncoder.encode(requestDto.getPassword());
 
         User user = User.builder().email(email).nickname(nickname).password(password).build();
         userRepository.save(user);
@@ -93,16 +94,23 @@ public class UserService {
         String email = requestDto.getEmail();
         String password = requestDto.getPassword();
 
+//        password = passwordEncoder.encode(password);
+
         // 사용자 확인
         Optional<User> found = userRepository.findByEmail(email);
         if (!found.isPresent())
             throw new CustomException(NOT_FOUND_USER);
 
+        System.out.println("found.get().getPassword() = " + found.get().getPassword());
+        System.out.println("password = " + password);
+
         // 비밀번호 확인
         if(!found.get().getPassword().equals(password))
             throw new CustomException(NOT_FOUND_USER);
+        String token = jwtUtil.createToken(found.get().getEmail(), UserRoleEnum.USER);
 
-        return ResponseEntity.ok().header(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(found.get().getEmail(), UserRoleEnum.USER))
-                .body(new SuccessMessageDto("로그인 성공", HttpStatus.OK.value()));
+
+        return ResponseEntity.ok().header(JwtUtil.AUTHORIZATION_HEADER, token.split(" ")[1])
+                .body(new LoginResponseDto("로그인 성공", HttpStatus.OK.value(), token.split(" ")[1]));
     }
 }
