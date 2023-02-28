@@ -31,10 +31,12 @@ public class TodoService {
     private final PostRepository postRepository;
     private final PostService postService;
 
+
+    // 포스트 생성
     @Transactional
     public ToDoResponseDto createToDo(Request request, User user){
         // 하루일정 생성
-        postService.createPost(request.getDate(), request.getOpen(),user);
+        postService.createPost(request.getDate(), request.getOpen(), user);
 
         Optional<Post> post = postRepository.findByDate(request.getDate());
 
@@ -69,7 +71,7 @@ public class TodoService {
 
     // 일정 수정
     @Transactional
-    public ToDoResponseDto updateToDo(Long toDoId, ToDoRequestDto toDoRequestDto){
+    public ToDoResponseDto updateToDo(Long toDoId, User user, ToDoRequestDto toDoRequestDto){
         ToDo toDo = toDoRepository.findById(toDoId).orElseThrow(
                 () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
         );

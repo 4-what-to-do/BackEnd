@@ -25,6 +25,7 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+
      /*카테고리별 일정 조회 */
     @GetMapping("/communities/category")
     public List<PostResponseDto> readCategoryAllPost(@RequestParam("category")Category category){
