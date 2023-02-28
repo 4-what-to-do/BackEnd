@@ -16,7 +16,7 @@ public class ToDo {
     @Column(name = "TODO_ID")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text", length = 100)
     private String content;
 
     @Column(nullable = false)

@@ -25,6 +25,8 @@ public class User {
     @Column(nullable = false, unique = true)
     private String nickname;
 
+
+
     // 생성 메서드
     @Builder
     public User(String email, String password, String nickname) {

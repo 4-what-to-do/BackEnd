@@ -2,13 +2,14 @@ package com.sparta.todo.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
 public class ExceptionDto {
-    private int status;
-    private String message;
+    private HttpStatus status;
 
     private String code;
 
+    private String message;
 }
