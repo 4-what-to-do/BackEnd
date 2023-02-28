@@ -26,11 +26,11 @@ public class LikeService {
     public ResponseEntity<SuccessMessageDto> likePost(Long postId, User user) {
         Optional<Post> post = postRepository.findById(postId);
         // 이전에 누른적 없을 때
-        Optional<LikePost> found = likePostRepository.findByPostAndUser(post.get(),post.get().getUser());
+        Optional<LikePost> found = likePostRepository.findByPostAndUser(post.get(),user);
 
         // post.get().getUser() 을 user로 다 바꿔주세용
         if(found.isEmpty()){
-            LikePost likePost = likePostRepository.save(new LikePost(post.get().getUser(), post.get()));
+            LikePost likePost = likePostRepository.save(new LikePost(user, post.get()));
         } else {    // 이전에 누른 적 있을 때
             likePostRepository.delete(found.get());
             likePostRepository.flush();

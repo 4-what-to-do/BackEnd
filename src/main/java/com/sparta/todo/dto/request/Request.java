@@ -10,6 +10,4 @@ public class Request {
     private Category category;
     private String content;
     private Boolean done;
-
-    private String user;    // 유저 인증 과정에서 지웁니다.
 }
