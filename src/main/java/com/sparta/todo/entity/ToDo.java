@@ -1,5 +1,6 @@
 package com.sparta.todo.entity;
 
+import com.sparta.todo.dto.request.ToDoRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,8 +34,12 @@ public class ToDo {
     @Builder
     public ToDo (String content, Boolean done, Category category, Post post){
         this.content = content;
-        this.done = done ;
+        this.done = done;
         this.category = category;
         this.post = post;
+    }
+
+    public void updateDone(Boolean doneC){
+        this.done = doneC;
     }
 }

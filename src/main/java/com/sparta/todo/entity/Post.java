@@ -39,5 +39,10 @@ public class Post {
         this.user = user;
         this.open = postRequestDto.getOpen();
     }
+
+    public Post(String date, Boolean open){
+        this.date = date;
+        this.open = open;
+    }
 }
 

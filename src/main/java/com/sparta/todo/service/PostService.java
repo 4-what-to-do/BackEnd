@@ -9,7 +9,6 @@ import com.sparta.todo.entity.ToDo;
 import com.sparta.todo.entity.User;
 import com.sparta.todo.repository.PostRepository;
 import com.sparta.todo.repository.ToDoRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,10 +26,13 @@ public class PostService {
     private final ToDoRepository toDoRepository;
 
 
+
+    // 포스트 추가
     @Transactional
-    public void createPost(PostRequestDto postRequestDto, User user){
-        if(postRequestDto.getDate().isEmpty()){
-            Post post = postRepository.save(new Post(postRequestDto,user));
+    public void createPost(String date, Boolean open){
+        Optional<Post> post = postRepository.findByDate(date);
+        if(post.isEmpty()){
+            new PostResponseDto(postRepository.save(new Post(date,open)));
         }
     }
 
