@@ -71,7 +71,7 @@ public class TodoService {
 
     // 일정 수정
     @Transactional
-    public ToDoResponseDto updateToDo(Long toDoId, User user, ToDoRequestDto toDoRequestDto){
+    public ToDoResponseDto updateToDo(Long toDoId, ToDoRequestDto toDoRequestDto){
         ToDo toDo = toDoRepository.findById(toDoId).orElseThrow(
                 () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
         );
