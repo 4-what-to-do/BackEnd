@@ -1,5 +1,6 @@
 package com.sparta.todo.service;
 
+import com.sparta.todo.dto.SuccessMessageDto;
 import com.sparta.todo.dto.request.PostRequestDto;
 import com.sparta.todo.dto.response.PostResponseDto;
 import com.sparta.todo.dto.response.ToDoResponseDto;
@@ -10,6 +11,8 @@ import com.sparta.todo.entity.User;
 import com.sparta.todo.repository.PostRepository;
 import com.sparta.todo.repository.ToDoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +39,21 @@ public class PostService {
         }
     }
 
+    // 포스트 공개 비공개
+    @Transactional
+    public ResponseEntity<SuccessMessageDto> openCheck(PostRequestDto postRequestDto){
+        Post post = postRepository.findByDate(postRequestDto.getDate()).orElseThrow(
+                () -> new IllegalArgumentException("게시글이 없습니다.")
+        );
+
+        post.update(postRequestDto.getOpen());
+
+        return ResponseEntity.ok()
+                .body(SuccessMessageDto.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .msg("상태 변경")
+                        .build());
+    }
 
 
     // 커뮤니티 일정 전체 조회
@@ -65,7 +83,6 @@ public class PostService {
     // 카테고리별 일정 조회
     @Transactional
     public List<PostResponseDto> getCategoriesPosts(Category category){
-
         List<ToDo> toDoList = toDoRepository.findAllByCategory(category);
         List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
         for(ToDo toDo : toDoList){
@@ -77,7 +94,7 @@ public class PostService {
             if(toDo.getPost().getOpen().equals(false)){
                 continue;
             }
-            if(toDo.getPost().getOpen().equals(true)){
+            if(toDo.getPost().getOpen().equals(true) && postResponseDtoList.contains(toDo)){
                 postResponseDtoList.add(new PostResponseDto(toDo.getPost(),toDoResponseDtoList));
             }
         }

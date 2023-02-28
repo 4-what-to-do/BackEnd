@@ -44,5 +44,9 @@ public class Post {
         this.date = date;
         this.open = open;
     }
+
+    public void update(Boolean open){
+        this.open = open;
+    }
 }
 
