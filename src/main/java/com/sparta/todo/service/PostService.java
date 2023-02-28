@@ -32,10 +32,10 @@ public class PostService {
 
     // 포스트 추가
     @Transactional
-    public void createPost(String date, Boolean open){
+    public void createPost(String date, Boolean open, User user){
         Optional<Post> post = postRepository.findByDate(date);
         if(post.isEmpty()){
-            new PostResponseDto(postRepository.save(new Post(date,open)));
+            new PostResponseDto(postRepository.save(new Post(date,open,user)));
         }
     }
 
@@ -100,5 +100,4 @@ public class PostService {
         }
         return postResponseDtoList;
     }
-
 }

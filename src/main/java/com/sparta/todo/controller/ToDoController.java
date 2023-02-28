@@ -24,8 +24,8 @@ public class ToDoController {
 
     // 포스트 작성
     @PostMapping("/todo")
-    public ToDoResponseDto createToDo(@RequestBody Request request) {
-        return todoService.createToDo(request);
+    public ToDoResponseDto createToDo(@RequestBody Request request, User user) {
+        return todoService.createToDo(request, user);
     }
 
     // 일정 조회

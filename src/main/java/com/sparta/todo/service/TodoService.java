@@ -30,9 +30,10 @@ public class TodoService {
     private final PostService postService;
 
     @Transactional
-    public ToDoResponseDto createToDo(Request request){
+    public ToDoResponseDto createToDo(Request request, User user){
+
         // 하루일정 생성
-        postService.createPost(request.getDate(), request.getOpen());
+        postService.createPost(request.getDate(), request.getOpen(),user);
 
         Optional<Post> post = postRepository.findByDate(request.getDate());
 

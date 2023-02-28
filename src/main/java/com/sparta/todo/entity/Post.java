@@ -26,7 +26,8 @@ public class Post {
     private Boolean open;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", nullable = false)
+    //@JoinColumn(name = "USER_ID", nullable = false)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
@@ -40,9 +41,10 @@ public class Post {
         this.open = postRequestDto.getOpen();
     }
 
-    public Post(String date, Boolean open){
+    public Post(String date, Boolean open, User user){
         this.date = date;
         this.open = open;
+        this.user = user;
     }
 
     public void update(Boolean open){
