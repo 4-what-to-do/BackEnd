@@ -1,7 +1,11 @@
 package com.sparta.todo.service;
 
 import com.sparta.todo.dto.SuccessMessageDto;
+import com.sparta.todo.dto.request.PostRequestDto;
+import com.sparta.todo.dto.request.ToDoRequestDto;
 import com.sparta.todo.dto.response.LikeResponseDto;
+import com.sparta.todo.dto.response.PostResponseDto;
+import com.sparta.todo.dto.response.ToDoResponseDto;
 import com.sparta.todo.entity.LikePost;
 import com.sparta.todo.entity.Post;
 import com.sparta.todo.entity.User;
@@ -28,58 +32,27 @@ public class LikeService {
 
     /* Post(하루 일정) 좋아요 기능 */
     @Transactional
-    public ResponseEntity<SuccessMessageDto> likePost(Long postId, User user) {
-        Optional<Post> post = postRepository.findById(postId);
-        // 이전에 누른적 없을 때
-        Optional<LikePost> found = likePostRepository.findByPostAndUser(post.get(),user);
+    public PostResponseDto likePost(Long postId, PostRequestDto postRequestDto, User user) {
 
-        // post.get().getUser() 을 user로 다 바꿔주세용
-        if(found.isEmpty()){
-            LikePost likePost = likePostRepository.save(new LikePost(user, post.get()));
-        } else {    // 이전에 누른 적 있을 때
-            likePostRepository.delete(found.get());
-            likePostRepository.flush();
-            return ResponseEntity.ok()
-                    .body(SuccessMessageDto.builder()
-                            .statusCode(HttpStatus.OK.value())
-                            .msg("좋아요 취소")
-                            .build());
-        }
-        return ResponseEntity.ok()
-                .body(SuccessMessageDto.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .msg("좋아요 성공")
-                        .build());
-    }
-
-     /*Post(하루 일정) 좋아요 개수 카운팅 */
-    @Transactional(readOnly = true)
-    public LikeResponseDto countLikes(Long postId){
-        // like 테이블에서 star_id 조회
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
         );
-        Long found = likePostRepository.countAllByPost(post);
 
-        return new LikeResponseDto(found);
+        Optional<LikePost> found = likePostRepository.findByPostAndUser(post,user);
+
+        Integer likeCnt = post.getLikeCount();
+
+        if(found.isEmpty()&&postRequestDto.getLikeStatus().equals(true)){
+            likePostRepository.save(new LikePost(user, post));
+            post.update(true, likeCnt+1);
+        } else if (!found.isEmpty()) {
+            likePostRepository.delete(found.get());
+            likePostRepository.flush();
+            post.update(false, likeCnt-1);
+            return new PostResponseDto(post);
+        } else {
+            throw new CustomException(Error.WRONG_LIKE_REQUEST);
+        }
+        return new PostResponseDto(post);
     }
-
-//    @Transactional
-//    public LikePost likePost(Long postId, User user){
-//
-//        Post foundPost = postRepository.findById(postId).orElseThrow(
-//                () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
-//        );
-//
-//        User foundUser = userRepository.findById(user.getId()).orElseThrow(
-//                () -> new CustomException(Error.NOT_EXIST_USER)
-//        );
-//
-//        LikePost found = likePostRepository.findByPostAndUser(foundPost, foundUser).get();
-//        if()
-//
-//        likePostRepository.findByPostAndUser(postId)
-//    }
-
-
 }

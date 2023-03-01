@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,6 +27,12 @@ public class Post {
     @Column(nullable = false)
     private Boolean open;
 
+    @Column(nullable = false)
+    private Boolean likeStatus = false;
+
+    @Column(name = "LIKE_COUNT")
+    private Integer likeCount = 0;
+
     @ManyToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name = "USER_ID", nullable = false)
     @JoinColumn(name = "USER_ID")
@@ -39,6 +47,8 @@ public class Post {
         this.date = postRequestDto.getDate();
         this.user = user;
         this.open = postRequestDto.getOpen();
+        this.likeCount = 0;
+        this.likeStatus = false;
     }
 
     public Post(String date, Boolean open, User user){
@@ -50,5 +60,9 @@ public class Post {
     public void update(Boolean open){
         this.open = open;
     }
-}
 
+    public void update(Boolean likeStatus, Integer likeCount){
+        this.likeStatus = likeStatus;
+        this.likeCount = likeCount;
+    }
+}

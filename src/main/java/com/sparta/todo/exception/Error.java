@@ -23,6 +23,8 @@ public enum Error {
     // 401 UNAUTHORIZED 비인증
     INVALID_AUTHORIZED(HttpStatus.UNAUTHORIZED, "401", "사용자 미인증"),
 
+    WRONG_LIKE_REQUEST(HttpStatus.BAD_REQUEST, "400", "잘못된 값을 요청하였습니다."),
+
 
 
 //    NOT_FOUND_MEMO(HttpStatus.NOT_FOUND, "404", "존재하지 않는 메모"),

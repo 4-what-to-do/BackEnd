@@ -13,6 +13,8 @@ public class PostResponseDto {
     private String nickname;
     private String date;
     private Boolean open;
+    private Boolean likeStatus;
+    private Integer likeCount;
 
     private List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
 
@@ -22,6 +24,8 @@ public class PostResponseDto {
         this.nickname = postEntity.getUser().getNickname();
         this.date = postEntity.getDate();
         this.open = postEntity.getOpen();
+        this.likeStatus = postEntity.getLikeStatus();
+        this.likeCount = postEntity.getLikeCount();
     }
 
     public PostResponseDto(Post postEntity, List<ToDoResponseDto> toDoResponseDtoList){
@@ -29,6 +33,8 @@ public class PostResponseDto {
         this.nickname = postEntity.getUser().getNickname();
         this.date = postEntity.getDate();
         this.open = postEntity.getOpen();
+        this.likeStatus = postEntity.getLikeStatus();
+        this.likeCount = postEntity.getLikeCount();
         this.toDoResponseDtoList = toDoResponseDtoList;
     }
 }

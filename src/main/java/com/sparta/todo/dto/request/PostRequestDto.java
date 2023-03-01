@@ -14,6 +14,7 @@ public class PostRequestDto {
     private String nickname;
     private String date;
     private Boolean open;
+    private Boolean likeStatus;
     private Integer likeCount;
     private List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
 

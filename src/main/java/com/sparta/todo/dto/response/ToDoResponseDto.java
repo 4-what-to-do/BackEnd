@@ -2,6 +2,7 @@ package com.sparta.todo.dto.response;
 
 import com.sparta.todo.entity.Category;
 import com.sparta.todo.entity.ToDo;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -13,6 +14,7 @@ public class ToDoResponseDto {
     private Long postId;
 
 
+    @Builder
     public ToDoResponseDto(ToDo toDoEntity){
         this.id = toDoEntity.getId();
         this.category = toDoEntity.getCategory();

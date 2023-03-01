@@ -42,7 +42,6 @@ public class TodoService {
 
 
     @Transactional
-    ////public ToDoResponseDto createToDo(Request request, UserDetailsImpl userDetails){
     public ResponseEntity createToDo(Request request, Long userId){
         User found = userRepository.findById(userId).orElseThrow(
                 () -> new CustomException(NOT_EXIST_USER)
@@ -72,7 +71,10 @@ public class TodoService {
         ToDo toDo = toDoRepository.findById(toDoId).orElseThrow(
                 () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
         );
-        toDo.updateDone(toDo.getDone());
+
+        if(toDo.getPost().getUser().getId().equals(toDoId)){
+            toDo.updateDone(toDo.getDone());
+        }
 
 
         return new ToDoResponseDto(toDo);
