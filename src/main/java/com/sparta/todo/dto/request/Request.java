@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 public class Request {
     private String date;
-    private Boolean open;
     private Category category;
     private String content;
     private Boolean done;

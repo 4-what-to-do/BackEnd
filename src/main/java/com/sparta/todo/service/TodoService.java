@@ -36,9 +36,9 @@ public class TodoService {
     @Transactional
     public ToDoResponseDto createToDo(Request request, User user){
         // 하루일정 생성
-        postService.createPost(request.getDate(), request.getOpen(), user);
+        postService.createPost(request.getDate(), user);
 
-        Optional<Post> post = postRepository.findByDate(request.getDate());
+        Optional<Post> post = postRepository.findByDateAndUser(request.getDate(), user);
 
         return new ToDoResponseDto(toDoRepository.save(new ToDo(request.getContent(),request.getDone(),request.getCategory(),post.get())));
     }
@@ -57,8 +57,8 @@ public class TodoService {
 
     // 일정 전체 조회
     @Transactional
-    public List<ToDoResponseDto> readToDo(String date){
-        Optional<Post> found = postRepository.findByDate(date);
+    public List<ToDoResponseDto> readToDo(String date,User user){
+        Optional<Post> found = postRepository.findByDateAndUser(date, user);
         List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(found.get());
         List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
 

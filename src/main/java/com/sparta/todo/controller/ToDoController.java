@@ -32,8 +32,8 @@ public class ToDoController {
 
     // 일정 조회
     @GetMapping("/todo")
-    public List<ToDoResponseDto> readToDo(@RequestParam("date")String date){
-        return todoService.readToDo(date);
+    public List<ToDoResponseDto> readToDo(@RequestParam("date")String date, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return todoService.readToDo(date, userDetails.getUser());
     }
 
     // 일정 완료 체크
