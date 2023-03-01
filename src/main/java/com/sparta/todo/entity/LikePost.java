@@ -31,4 +31,5 @@ public class LikePost {
         this.user = user;
         this.post = post;
     }
+
 }
