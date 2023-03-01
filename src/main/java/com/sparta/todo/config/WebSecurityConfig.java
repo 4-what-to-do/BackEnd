@@ -54,6 +54,7 @@ public class WebSecurityConfig {
                 .antMatchers("/users/signup").permitAll()
                 .antMatchers("/users/email-check").permitAll()
                 .antMatchers( "/users/nickname-check").permitAll()
+                .antMatchers("/posts/todo").permitAll()
 
                 .anyRequest().authenticated()
                 // JWT 인증/인가를 사용하기 위한 설정

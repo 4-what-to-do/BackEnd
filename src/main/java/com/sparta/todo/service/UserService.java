@@ -51,7 +51,7 @@ public class UserService {
         if (!passwordCheck.equals(password))
             throw new CustomException(WRONG_PASSWORD_CHECK);
 
-//        password = passwordEncoder.encode(requestDto.getPassword());
+        password = passwordEncoder.encode(requestDto.getPassword());
 
         User user = User.builder().email(email).nickname(nickname).password(password).build();
         userRepository.save(user);
@@ -94,21 +94,17 @@ public class UserService {
         String email = requestDto.getEmail();
         String password = requestDto.getPassword();
 
-//        password = passwordEncoder.encode(password);
 
         // 사용자 확인
         Optional<User> found = userRepository.findByEmail(email);
         if (!found.isPresent())
             throw new CustomException(NOT_FOUND_USER);
 
-        System.out.println("found.get().getPassword() = " + found.get().getPassword());
-        System.out.println("password = " + password);
-
         // 비밀번호 확인
-        if(!found.get().getPassword().equals(password))
+        if (!passwordEncoder.matches(password, found.get().getPassword())) {
             throw new CustomException(NOT_FOUND_USER);
+        }
         String token = jwtUtil.createToken(found.get().getEmail(), UserRoleEnum.USER);
-
 
         return ResponseEntity.ok().header(JwtUtil.AUTHORIZATION_HEADER, token.split(" ")[1])
                 .body(new LoginResponseDto("로그인 성공", HttpStatus.OK.value(), token.split(" ")[1]));

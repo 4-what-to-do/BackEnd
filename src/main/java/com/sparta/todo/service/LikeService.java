@@ -5,8 +5,11 @@ import com.sparta.todo.dto.response.LikeResponseDto;
 import com.sparta.todo.entity.LikePost;
 import com.sparta.todo.entity.Post;
 import com.sparta.todo.entity.User;
+import com.sparta.todo.exception.CustomException;
+import com.sparta.todo.exception.Error;
 import com.sparta.todo.repository.LikePostRepository;
 import com.sparta.todo.repository.PostRepository;
+import com.sparta.todo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,8 @@ import java.util.Optional;
 public class LikeService {
     private final LikePostRepository likePostRepository;
     private final PostRepository postRepository;
+
+    private final UserRepository userRepository;
 
     /* Post(하루 일정) 좋아요 기능 */
     @Transactional
@@ -58,4 +63,23 @@ public class LikeService {
 
         return new LikeResponseDto(found);
     }
+
+//    @Transactional
+//    public LikePost likePost(Long postId, User user){
+//
+//        Post foundPost = postRepository.findById(postId).orElseThrow(
+//                () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
+//        );
+//
+//        User foundUser = userRepository.findById(user.getId()).orElseThrow(
+//                () -> new CustomException(Error.NOT_EXIST_USER)
+//        );
+//
+//        LikePost found = likePostRepository.findByPostAndUser(foundPost, foundUser).get();
+//        if()
+//
+//        likePostRepository.findByPostAndUser(postId)
+//    }
+
+
 }

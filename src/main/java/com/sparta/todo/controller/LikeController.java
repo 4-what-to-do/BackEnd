@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/posts/communities")
 public class LikeController {
-    private final LikeService likeService;
-    @PutMapping("/like/{postId}")
-    public ResponseEntity<SuccessMessageDto> LikePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return likeService.likePost(postId,userDetails.getUser());
-    }
-
-    @GetMapping("/like/{postId}")
-    public LikeResponseDto LikeCntPost(@PathVariable Long postId){
-        return likeService.countLikes(postId);
-    }
+//    private final LikeService likeService;
+//    //@PutMapping("/like/{postId}")
+////    public ResponseEntity<SuccessMessageDto> LikePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+////        return likeService.likePost(postId,userDetails.getUser());
+////    }
+//
+//    @PutMapping("/like/{postId")
+//    public ResponseEntity<LikePostResponseDto> LikePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+//        return likeService.likePost(postId, userDetails.getUser());
+//    }
 
 }

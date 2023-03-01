@@ -14,10 +14,16 @@ public enum Error {
     WRONG_PASSWORD_CHECK(HttpStatus.BAD_REQUEST, "400", "비밀번호, 비밀번호 확인 값 서로 불일치"),
     VALIDATE_EMAIL_ERROR(HttpStatus.BAD_REQUEST, "400", "이메일 형식이 아닙니다."),
 
+    NOT_FOUND_DATE(HttpStatus.BAD_REQUEST, "400", "일정을 찾을 수 없습니다."),
+
     VALIDATE_NICKNAME_ERROR(HttpStatus.BAD_REQUEST, "400", "닉네임은 알파벳 대, 소문자, 숫자로 구성된 2-12자리여야 한다."),
+
+    NOT_EXIST_USER(HttpStatus.BAD_REQUEST, "400", "회원을 찾을 수 없습니다."),
 
     // 401 UNAUTHORIZED 비인증
     INVALID_AUTHORIZED(HttpStatus.UNAUTHORIZED, "401", "사용자 미인증"),
+
+
 
 //    NOT_FOUND_MEMO(HttpStatus.NOT_FOUND, "404", "존재하지 않는 메모"),
 //

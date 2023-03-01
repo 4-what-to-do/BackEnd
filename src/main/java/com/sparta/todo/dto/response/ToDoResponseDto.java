@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class ToDoResponseDto {
-    private Long toDoId;
+    private Long id;
     private Category category;
     private String content;
     private Boolean done;
@@ -14,7 +14,7 @@ public class ToDoResponseDto {
 
 
     public ToDoResponseDto(ToDo toDoEntity){
-        this.toDoId = toDoEntity.getId();
+        this.id = toDoEntity.getId();
         this.category = toDoEntity.getCategory();
         this.content = toDoEntity.getContent();
         this.done = toDoEntity.getDone();

@@ -9,8 +9,12 @@ import com.sparta.todo.entity.Category;
 import com.sparta.todo.entity.Post;
 import com.sparta.todo.entity.ToDo;
 import com.sparta.todo.entity.User;
+import com.sparta.todo.exception.CustomException;
+import com.sparta.todo.exception.Error;
 import com.sparta.todo.repository.PostRepository;
 import com.sparta.todo.repository.ToDoRepository;
+import com.sparta.todo.repository.UserRepository;
+import com.sparta.todo.security.UserDetailsImpl;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +27,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import static com.sparta.todo.exception.Error.NOT_EXIST_USER;
+
 @Service
 @RequiredArgsConstructor
 
@@ -31,17 +37,19 @@ public class TodoService {
     private final PostRepository postRepository;
     private final PostService postService;
 
+    private final UserRepository userRepository;
 
-    // 포스트 생성
+
     @Transactional
     public ToDoResponseDto createToDo(Request request, User user){
         // 하루일정 생성
-        postService.createPost(request.getDate(), request.getOpen(), user);
+        postService.createPost(request.getDate(), request.getOpen(),user);
 
         Optional<Post> post = postRepository.findByDate(request.getDate());
 
         return new ToDoResponseDto(toDoRepository.save(new ToDo(request.getContent(),request.getDone(),request.getCategory(),post.get())));
     }
+
 
     // 일정 완료 체크
     @Transactional
@@ -49,8 +57,8 @@ public class TodoService {
         ToDo toDo = toDoRepository.findById(toDoId).orElseThrow(
                 () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
         );
+        toDo.updateDone(toDo.getDone());
 
-        toDo.updateDone(true);
 
         return new ToDoResponseDto(toDo);
     }
@@ -58,8 +66,13 @@ public class TodoService {
     // 일정 전체 조회
     @Transactional
     public List<ToDoResponseDto> readToDo(String date){
-        Optional<Post> found = postRepository.findByDate(date);
-        List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(found.get());
+        System.out.println("data");
+
+        Post post = postRepository.findByDate(date).orElseThrow(
+                () -> new CustomException(Error.NOT_FOUND_DATE)
+        );
+
+        List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(post);
         List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
 
         for(ToDo toDo : toDoList){
