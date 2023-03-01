@@ -1,9 +1,9 @@
 package com.sparta.todo.service;
 
 import com.sparta.todo.dto.SuccessMessageDto;
-import com.sparta.todo.dto.request.PostRequestDto;
-import com.sparta.todo.dto.response.PostResponseDto;
-import com.sparta.todo.dto.response.ToDoResponseDto;
+import com.sparta.todo.dto.requestDto.PostRequestDto;
+import com.sparta.todo.dto.responseDto.PostResponseDto;
+import com.sparta.todo.dto.responseDto.ToDoResponseDto;
 import com.sparta.todo.entity.Category;
 import com.sparta.todo.entity.Post;
 import com.sparta.todo.entity.ToDo;
@@ -56,7 +56,6 @@ public class PostService {
     }
 
 
-    // 커뮤니티 일정 전체 조회
     // 커뮤니티 일정 전체 조회
     @Transactional(readOnly = true)
     public List<PostResponseDto> getAllPosts(){

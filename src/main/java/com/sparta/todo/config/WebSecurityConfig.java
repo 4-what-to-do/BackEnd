@@ -6,11 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,8 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import javax.servlet.http.HttpSession;
 
 @Configuration
 @RequiredArgsConstructor
@@ -51,14 +47,6 @@ public class WebSecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests().antMatchers("/users/**").permitAll()
-//                .antMatchers("/users/signup").permitAll()
-//                .antMatchers("/users/email-check").permitAll()
-//                .antMatchers( "/users/nickname-check").permitAll()
-//                .antMatchers("/posts/todo/{todoId}").permitAll()
-//                .antMatchers("/posts/todo/done/{todoId}").permitAll()
-//                .antMatchers("/posts/open").permitAll()
-//                .antMatchers("/posts/communites").permitAll()
-//                .antMatchers("/posts/communites/category/**").permitAll()
 
                 .anyRequest().authenticated()
                 // JWT 인증/인가를 사용하기 위한 설정
@@ -67,10 +55,6 @@ public class WebSecurityConfig {
 
         // 이 설정을 해주지 않으면 밑의 corsConfigurationSource가 적용되지 않습니다!
         http.cors().configurationSource(corsConfigurationSource());
-
-        //http.formLogin().loginPage("/api/user/login-page").permitAll();
-
-        //http.exceptionHandling().accessDeniedPage("/api/user/forbidden");
 
         return http.build();
     }

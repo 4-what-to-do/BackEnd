@@ -1,10 +1,9 @@
 package com.sparta.todo.controller;
 
 import com.sparta.todo.dto.SuccessMessageDto;
-import com.sparta.todo.dto.request.PostRequestDto;
-import com.sparta.todo.dto.response.PostResponseDto;
+import com.sparta.todo.dto.requestDto.PostRequestDto;
+import com.sparta.todo.dto.responseDto.PostResponseDto;
 import com.sparta.todo.entity.Category;
-import com.sparta.todo.entity.Post;
 import com.sparta.todo.security.UserDetailsImpl;
 import com.sparta.todo.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -21,14 +20,14 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
-     /*일정 전체 조회 */
+     // 일정 전체 조회
     @GetMapping("/communities")
     public List<PostResponseDto> readAllPost(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return postService.getAllPosts();
     }
 
 
-     /*카테고리별 일정 조회 */
+     // 카테고리별 일정 조회
     @GetMapping("/communities/category")
     public List<PostResponseDto> readCategoryAllPost(@RequestParam("category")Category category, @AuthenticationPrincipal UserDetailsImpl userDetails){
 

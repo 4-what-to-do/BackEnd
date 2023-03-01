@@ -1,6 +1,6 @@
 package com.sparta.todo.entity;
 
-import com.sparta.todo.dto.request.ToDoRequestDto;
+import com.sparta.todo.dto.requestDto.ToDoRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

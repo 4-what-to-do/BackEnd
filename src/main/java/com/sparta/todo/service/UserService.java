@@ -1,9 +1,7 @@
 package com.sparta.todo.service;
 
 import com.sparta.todo.dto.SuccessMessageDto;
-import com.sparta.todo.dto.requestDto.EmailCheckRequestDto;
 import com.sparta.todo.dto.requestDto.LoginRequestDto;
-import com.sparta.todo.dto.requestDto.NicknameCheckRequestDto;
 import com.sparta.todo.dto.requestDto.SignUpRequestDto;
 import com.sparta.todo.dto.responseDto.LoginResponseDto;
 import com.sparta.todo.entity.User;

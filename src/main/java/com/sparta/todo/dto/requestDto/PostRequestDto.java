@@ -1,10 +1,8 @@
-package com.sparta.todo.dto.request;
+package com.sparta.todo.dto.requestDto;
 
-import com.sparta.todo.dto.response.ToDoResponseDto;
-import com.sparta.todo.entity.Post;
+import com.sparta.todo.dto.responseDto.ToDoResponseDto;
 import lombok.Getter;
 
-import javax.persistence.criteria.ListJoin;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -2,20 +2,16 @@ package com.sparta.todo.service;
 
 
 import com.sparta.todo.dto.SuccessMessageDto;
-import com.sparta.todo.dto.request.Request;
-import com.sparta.todo.dto.request.ToDoRequestDto;
-import com.sparta.todo.dto.response.ToDoResponseDto;
-import com.sparta.todo.entity.Category;
+import com.sparta.todo.dto.requestDto.Request;
+import com.sparta.todo.dto.requestDto.ToDoRequestDto;
+import com.sparta.todo.dto.responseDto.ToDoResponseDto;
 import com.sparta.todo.entity.Post;
 import com.sparta.todo.entity.ToDo;
 import com.sparta.todo.entity.User;
 import com.sparta.todo.exception.CustomException;
-import com.sparta.todo.exception.Error;
 import com.sparta.todo.repository.PostRepository;
 import com.sparta.todo.repository.ToDoRepository;
 import com.sparta.todo.repository.UserRepository;
-import com.sparta.todo.security.UserDetailsImpl;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 import static com.sparta.todo.exception.Error.NOT_EXIST_USER;
 import static com.sparta.todo.exception.Error.NOT_FOUND_DATE;
@@ -36,8 +31,6 @@ import static com.sparta.todo.exception.Error.NOT_FOUND_DATE;
 public class TodoService {
     private final ToDoRepository toDoRepository;
     private final PostRepository postRepository;
-    private final PostService postService;
-
     private final UserRepository userRepository;
 
 
@@ -76,7 +69,6 @@ public class TodoService {
             toDo.updateDone(toDo.getDone());
         }
 
-
         return new ToDoResponseDto(toDo);
     }
 
@@ -110,6 +102,7 @@ public class TodoService {
         return new ToDoResponseDto(toDo);
     }
 
+
     // 일정 삭제
     @Transactional
     public ResponseEntity<SuccessMessageDto> deleteToDo(Long toDoId){
@@ -124,5 +117,4 @@ public class TodoService {
                         .msg("삭제 성공")
                         .build());
     }
-
 }

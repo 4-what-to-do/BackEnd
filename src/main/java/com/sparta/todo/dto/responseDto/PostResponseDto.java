@@ -1,6 +1,5 @@
-package com.sparta.todo.dto.response;
+package com.sparta.todo.dto.responseDto;
 
-import com.sparta.todo.entity.LikePost;
 import com.sparta.todo.entity.Post;
 import lombok.Getter;
 

@@ -1,14 +1,10 @@
 package com.sparta.todo.controller;
 
 import com.sparta.todo.dto.SuccessMessageDto;
-import com.sparta.todo.dto.request.Request;
-import com.sparta.todo.dto.request.ToDoRequestDto;
-import com.sparta.todo.dto.response.PostResponseDto;
-import com.sparta.todo.dto.response.ToDoResponseDto;
-import com.sparta.todo.entity.Category;
-import com.sparta.todo.entity.User;
+import com.sparta.todo.dto.requestDto.Request;
+import com.sparta.todo.dto.requestDto.ToDoRequestDto;
+import com.sparta.todo.dto.responseDto.ToDoResponseDto;
 import com.sparta.todo.security.UserDetailsImpl;
-import com.sparta.todo.service.PostService;
 import com.sparta.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

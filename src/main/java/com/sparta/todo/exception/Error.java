@@ -27,10 +27,6 @@ public enum Error {
 
 
 
-//    NOT_FOUND_MEMO(HttpStatus.NOT_FOUND, "404", "존재하지 않는 메모"),
-//
-//    NOT_FOUND_COMMENT(HttpStatus.NOT_FOUND, "404", "존재하지 않는 댓글"),
-
 
     // 409 CONFLICT 중복된 리소스
     DUPLICATED_EMAIL(HttpStatus.CONFLICT, "409", "이미 존재하는 이메일입니다."),

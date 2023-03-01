@@ -1,12 +1,9 @@
 package com.sparta.todo.controller;
 
 import com.sparta.todo.dto.SuccessMessageDto;
-import com.sparta.todo.dto.requestDto.EmailCheckRequestDto;
 import com.sparta.todo.dto.requestDto.LoginRequestDto;
-import com.sparta.todo.dto.requestDto.NicknameCheckRequestDto;
 import com.sparta.todo.dto.requestDto.SignUpRequestDto;
 import com.sparta.todo.dto.responseDto.FieldErrorDetail;
-import com.sparta.todo.jwt.JwtUtil;
 import com.sparta.todo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

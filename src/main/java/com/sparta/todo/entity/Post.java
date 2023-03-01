@@ -1,12 +1,10 @@
 package com.sparta.todo.entity;
 
-import com.sparta.todo.dto.request.PostRequestDto;
+import com.sparta.todo.dto.requestDto.PostRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,7 +32,6 @@ public class Post {
     private Integer likeCount = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "USER_ID", nullable = false)
     @JoinColumn(name = "USER_ID")
     private User user;
 
