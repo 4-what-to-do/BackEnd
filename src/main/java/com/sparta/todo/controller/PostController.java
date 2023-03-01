@@ -37,9 +37,8 @@ public class PostController {
 
     // 공개 비공개
     @PutMapping("/open")
-    public ResponseEntity<SuccessMessageDto> publicSwitchToDo(@Valid @RequestBody XxxDto xxxDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        System.out.println("PostController.publicSwitchToDo1");
-        return postService.openCheck(xxxDto);
-    }
 
+    public ResponseEntity<SuccessMessageDto> publicSwitchToDo(@Valid @RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return postService.openCheck(postRequestDto);
+    }
 }

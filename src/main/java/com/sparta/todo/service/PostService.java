@@ -43,13 +43,13 @@ public class PostService {
 
     // 포스트 공개 비공개
     @Transactional
-    public ResponseEntity<SuccessMessageDto> openCheck(XxxDto xxxDto){
+    public ResponseEntity<SuccessMessageDto> openCheck(PostRequestDto postRequestDto){
         System.out.println("PostService.openCheck2");
-        Post post = postRepository.findByDate(xxxDto.getDate()).orElseThrow(
+        Post post = postRepository.findByDate(postRequestDto.getDate()).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 없습니다.")
         );
         System.out.println("PostService.openCheck3");
-        post.update(xxxDto.getOpen());
+        post.update(postRequestDto.getOpen());
 
         return ResponseEntity.ok()
                 .body(SuccessMessageDto.builder()
@@ -59,7 +59,6 @@ public class PostService {
     }
 
 
-    // 커뮤니티 일정 전체 조회
     @Transactional(readOnly = true)
     public List<PostResponseDto> getAllPosts(){
 
