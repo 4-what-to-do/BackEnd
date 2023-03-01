@@ -41,11 +41,9 @@ public class TodoService {
     private final UserRepository userRepository;
 
 
-    // 포스트 생성 가짜
     @Transactional
     ////public ToDoResponseDto createToDo(Request request, UserDetailsImpl userDetails){
     public ResponseEntity createToDo(Request request, Long userId){
-        System.out.println("TodoService.createToDo1");
         User found = userRepository.findById(userId).orElseThrow(
                 () -> new CustomException(NOT_EXIST_USER)
         );
@@ -83,14 +81,13 @@ public class TodoService {
     // 일정 전체 조회
     @Transactional
     public List<ToDoResponseDto> readToDo(String date, User user){
-        System.out.println("data");
-        System.out.println("TodoService.readToDo1");
+
         Optional<Post> post = postRepository.findByDateAndUser(date, user);
         if(post.isEmpty())
             throw new CustomException(NOT_FOUND_DATE);
-        System.out.println("TodoService.readToDo2");
+
         List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(post.get());
-        System.out.println("TodoService.readToDo3");
+
         List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
 
         for(ToDo toDo : toDoList){

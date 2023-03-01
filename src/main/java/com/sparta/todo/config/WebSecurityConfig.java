@@ -50,11 +50,15 @@ public class WebSecurityConfig {
         // 기본 설정인 Session 방식은 사용하지 않고 JWT 방식을 사용하기 위한 설정
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.authorizeRequests().antMatchers("/users/login").permitAll()
-                .antMatchers("/users/signup").permitAll()
-                .antMatchers("/users/email-check").permitAll()
-                .antMatchers( "/users/nickname-check").permitAll()
-                .antMatchers("/posts/todo").permitAll()
+        http.authorizeRequests().antMatchers("/users/**").permitAll()
+//                .antMatchers("/users/signup").permitAll()
+//                .antMatchers("/users/email-check").permitAll()
+//                .antMatchers( "/users/nickname-check").permitAll()
+//                .antMatchers("/posts/todo/{todoId}").permitAll()
+//                .antMatchers("/posts/todo/done/{todoId}").permitAll()
+//                .antMatchers("/posts/open").permitAll()
+//                .antMatchers("/posts/communites").permitAll()
+//                .antMatchers("/posts/communites/category/**").permitAll()
 
                 .anyRequest().authenticated()
                 // JWT 인증/인가를 사용하기 위한 설정

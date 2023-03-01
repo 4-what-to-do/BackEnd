@@ -11,7 +11,6 @@ public class RestApiExceptionHandler {
 
         return ResponseEntity.badRequest().body(new ExceptionDto(ex.getError().getHttpStatus(), ex.getError().getErrorCode(), ex.getError().getErrorMessage())
 
-
         );
     }
 }
