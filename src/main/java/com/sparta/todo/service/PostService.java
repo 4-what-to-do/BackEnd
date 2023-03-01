@@ -56,7 +56,6 @@ public class PostService {
     }
 
 
-    // 커뮤니티 일정 전체 조회
     @Transactional(readOnly = true)
     public List<PostResponseDto> getAllPosts(){
 

@@ -35,8 +35,8 @@ public class ToDoController {
 
     // 일정 완료 체크
     @PutMapping("/todo/done/{todoId}")
-    public ToDoResponseDto doneCheck(@PathVariable Long todoId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return todoService.doneCheck(todoId);
+    public ToDoResponseDto doneCheck(@PathVariable Long todoId, @RequestBody ToDoRequestDto toDoRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return todoService.doneCheck(todoId, toDoRequestDto);
     }
 
     // 일정 수정

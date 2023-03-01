@@ -60,14 +60,13 @@ public class TodoService {
 
     // 일정 완료 체크
     @Transactional
-    public ToDoResponseDto doneCheck(Long toDoId){
+    public ToDoResponseDto doneCheck(Long toDoId, ToDoRequestDto toDoRequestDto){
         ToDo toDo = toDoRepository.findById(toDoId).orElseThrow(
                 () -> new IllegalArgumentException("일정이 존재하지 않습니다.")
         );
 
-        if(toDo.getPost().getUser().getId().equals(toDoId)){
-            toDo.updateDone(toDo.getDone());
-        }
+
+       toDo.updateDone(toDoRequestDto.getDone());
 
         return new ToDoResponseDto(toDo);
     }
@@ -102,7 +101,6 @@ public class TodoService {
         return new ToDoResponseDto(toDo);
     }
 
-
     // 일정 삭제
     @Transactional
     public ResponseEntity<SuccessMessageDto> deleteToDo(Long toDoId){
@@ -117,4 +115,5 @@ public class TodoService {
                         .msg("삭제 성공")
                         .build());
     }
+
 }
