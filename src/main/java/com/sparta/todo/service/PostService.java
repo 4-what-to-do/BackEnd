@@ -84,21 +84,36 @@ public class PostService {
     // 카테고리별 일정 조회
     @Transactional
     public List<PostResponseDto> getCategoriesPosts(Category category){
-        List<ToDo> toDoList = toDoRepository.findAllByCategory(category);
-        List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
-        for(ToDo toDo : toDoList){
-            toDoResponseDtoList.add(new ToDoResponseDto(toDo));
-        }
-
+        List<Post> postsList = postRepository.findAll();
         List<PostResponseDto> postResponseDtoList = new ArrayList<>();
-        for (ToDo toDo : toDoList) {
-            if(toDo.getPost().getOpen().equals(false)){
+
+        for(Post post : postsList){
+
+            // 포스트가 비공개라면 이 포스트는 추가하지 않음
+            if(post.getOpen().equals(false)){
                 continue;
             }
-            if(toDo.getPost().getOpen().equals(true) && postResponseDtoList.contains(toDo)){
-                postResponseDtoList.add(new PostResponseDto(toDo.getPost(),toDoResponseDtoList));
+
+            List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(post);
+            List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
+            // 카테고리가 들어간 코드인지 판별
+            for(ToDo toDo : toDoList){
+                if(!toDo.getCategory().equals(category)){
+                    continue;
+                }
+                toDoResponseDtoList.add(new ToDoResponseDto(toDo));
+            }
+            // 카테고리가 들어간 코드라면 같은 post_id를 가진 일정을 전부 저장해서 반환
+            if(!toDoResponseDtoList.isEmpty()){
+                toDoResponseDtoList.clear();
+                for(ToDo toDo : toDoList){
+                    toDoResponseDtoList.add(new ToDoResponseDto(toDo));
+                }
+                postResponseDtoList.add(new PostResponseDto(post,toDoResponseDtoList));
             }
         }
+        // 포스트 List reverse. 최신 포스트가 가장 위로 올라옴
+        Collections.reverse(postResponseDtoList);
         return postResponseDtoList;
     }
 }
