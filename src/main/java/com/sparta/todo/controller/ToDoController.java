@@ -24,17 +24,20 @@ public class ToDoController {
 
     private final TodoService todoService;
 
+
     // 포스트 작성
     @PostMapping("/todo")
-    public ToDoResponseDto createToDo(@RequestBody Request request, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return todoService.createToDo(request, userDetails.getUser());
+    public ResponseEntity createToDoFirst(@RequestBody Request request, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        System.out.println("ToDoController.createToDoFirst");
+        return todoService.createToDo(request, userDetails.getUser().getId());
     }
+
 
     // 일정 조회
     @GetMapping("/todo")
-    public List<ToDoResponseDto> readToDo(@RequestParam String date){
+    public List<ToDoResponseDto> readToDo(@RequestParam String date, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         System.out.println("date = " + date);
-        return todoService.readToDo(date);
+        return todoService.readToDo(date, userDetails.getUser());
     }
 
     // 일정 완료 체크

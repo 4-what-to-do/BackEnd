@@ -28,6 +28,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import static com.sparta.todo.exception.Error.NOT_EXIST_USER;
+import static com.sparta.todo.exception.Error.NOT_FOUND_DATE;
 
 @Service
 @RequiredArgsConstructor
@@ -40,16 +41,32 @@ public class TodoService {
     private final UserRepository userRepository;
 
 
+    // 포스트 생성 가짜
     @Transactional
-    public ToDoResponseDto createToDo(Request request, User user){
-        // 하루일정 생성
-        postService.createPost(request.getDate(), request.getOpen(),user);
-
-        Optional<Post> post = postRepository.findByDate(request.getDate());
-
-        return new ToDoResponseDto(toDoRepository.save(new ToDo(request.getContent(),request.getDone(),request.getCategory(),post.get())));
+    ////public ToDoResponseDto createToDo(Request request, UserDetailsImpl userDetails){
+    public ResponseEntity createToDo(Request request, Long userId){
+        System.out.println("TodoService.createToDo1");
+        User found = userRepository.findById(userId).orElseThrow(
+                () -> new CustomException(NOT_EXIST_USER)
+        );
+        System.out.println("TodoService.createToDo2");
+        Optional<Post> post = postRepository.findByDateAndUser(request.getDate(), found);
+        System.out.println("TodoService.createToDo3");
+        if(post.isEmpty()){
+            System.out.println("TodoService.createToDo1");;
+            Post newPost = new Post(request.getDate(), true, found);
+            postRepository.save(newPost);
+            ToDo toDo = ToDo.builder().content(request.getContent()).done(request.getDone()).category(request.getCategory()).post(newPost).build();
+            toDoRepository.save(toDo);
+        }
+        else {
+            System.out.println("TodoService.createToDo2");
+            ToDo toDo = ToDo.builder().content(request.getContent()).done(request.getDone()).category(request.getCategory()).post(post.get()).build();
+            toDoRepository.save(toDo);
+        }
+        //?//?
+        return ResponseEntity.ok(new SuccessMessageDto("성공", HttpStatus.OK.value()));
     }
-
 
     // 일정 완료 체크
     @Transactional
@@ -65,14 +82,15 @@ public class TodoService {
 
     // 일정 전체 조회
     @Transactional
-    public List<ToDoResponseDto> readToDo(String date){
+    public List<ToDoResponseDto> readToDo(String date, User user){
         System.out.println("data");
-
-        Post post = postRepository.findByDate(date).orElseThrow(
-                () -> new CustomException(Error.NOT_FOUND_DATE)
-        );
-
-        List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(post);
+        System.out.println("TodoService.readToDo1");
+        Optional<Post> post = postRepository.findByDateAndUser(date, user);
+        if(post.isEmpty())
+            throw new CustomException(NOT_FOUND_DATE);
+        System.out.println("TodoService.readToDo2");
+        List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(post.get());
+        System.out.println("TodoService.readToDo3");
         List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
 
         for(ToDo toDo : toDoList){
