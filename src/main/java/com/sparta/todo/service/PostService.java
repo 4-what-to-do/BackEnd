@@ -2,6 +2,8 @@ package com.sparta.todo.service;
 
 import com.sparta.todo.dto.SuccessMessageDto;
 import com.sparta.todo.dto.requestDto.PostRequestDto;
+import com.sparta.todo.dto.requestDto.PostRequestDto1;
+import com.sparta.todo.dto.requestDto.XxxDto;
 import com.sparta.todo.dto.responseDto.PostResponseDto;
 import com.sparta.todo.dto.responseDto.ToDoResponseDto;
 import com.sparta.todo.entity.Category;
@@ -41,12 +43,13 @@ public class PostService {
 
     // 포스트 공개 비공개
     @Transactional
-    public ResponseEntity<SuccessMessageDto> openCheck(PostRequestDto postRequestDto){
-        Post post = postRepository.findByDate(postRequestDto.getDate()).orElseThrow(
+    public ResponseEntity<SuccessMessageDto> openCheck(XxxDto xxxDto){
+        System.out.println("PostService.openCheck2");
+        Post post = postRepository.findByDate(xxxDto.getDate()).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 없습니다.")
         );
-
-        post.update(postRequestDto.getOpen());
+        System.out.println("PostService.openCheck3");
+        post.update(xxxDto.getOpen());
 
         return ResponseEntity.ok()
                 .body(SuccessMessageDto.builder()

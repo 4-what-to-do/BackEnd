@@ -2,6 +2,7 @@ package com.sparta.todo.controller;
 
 import com.sparta.todo.dto.SuccessMessageDto;
 import com.sparta.todo.dto.requestDto.PostRequestDto;
+import com.sparta.todo.dto.requestDto.XxxDto;
 import com.sparta.todo.dto.responseDto.PostResponseDto;
 import com.sparta.todo.entity.Category;
 import com.sparta.todo.security.UserDetailsImpl;
@@ -35,9 +36,10 @@ public class PostController {
     }
 
     // 공개 비공개
-    @PutMapping("/oepn")
-    public ResponseEntity<SuccessMessageDto> publicSwitchToDo(@Valid @RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return postService.openCheck(postRequestDto);
+    @PutMapping("/open")
+    public ResponseEntity<SuccessMessageDto> publicSwitchToDo(@Valid @RequestBody XxxDto xxxDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        System.out.println("PostController.publicSwitchToDo1");
+        return postService.openCheck(xxxDto);
     }
 
 }

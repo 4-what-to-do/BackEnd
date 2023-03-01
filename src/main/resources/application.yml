@@ -5,7 +5,7 @@ spring:
     #url: jdbc:mysql://database-1.camc1lkeqcmr.ap-northeast-2.rds.amazonaws.com:3306/database1
     url: jdbc:mysql://localhost:3306/todo?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: demian130a
+    password: 661213bb
 #    url: jdbc:mysql://localhost:3306/selectshop?serverTimezone=UTC&characterEncoding=UTF-8
 #    username: root
 #    password: 661213bb
