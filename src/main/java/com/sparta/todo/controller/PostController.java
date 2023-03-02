@@ -23,15 +23,14 @@ public class PostController {
      // 일정 전체 조회
     @GetMapping("/communities")
     public List<PostResponseDto> readAllPost(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return postService.getAllPosts();
+        return postService.getAllPosts(userDetails.getUser());
     }
-
 
      // 카테고리별 일정 조회
     @GetMapping("/communities/category")
     public List<PostResponseDto> readCategoryAllPost(@RequestParam("category")Category category, @AuthenticationPrincipal UserDetailsImpl userDetails){
 
-        return postService.getCategoriesPosts(category);
+        return postService.getCategoriesPosts(category, userDetails.getUser());
     }
 
     // 공개 비공개

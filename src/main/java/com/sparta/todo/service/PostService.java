@@ -4,10 +4,8 @@ import com.sparta.todo.dto.SuccessMessageDto;
 import com.sparta.todo.dto.requestDto.PostRequestDto;
 import com.sparta.todo.dto.responseDto.PostResponseDto;
 import com.sparta.todo.dto.responseDto.ToDoResponseDto;
-import com.sparta.todo.entity.Category;
-import com.sparta.todo.entity.Post;
-import com.sparta.todo.entity.ToDo;
-import com.sparta.todo.entity.User;
+import com.sparta.todo.entity.*;
+import com.sparta.todo.repository.LikePostRepository;
 import com.sparta.todo.repository.PostRepository;
 import com.sparta.todo.repository.ToDoRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +25,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final ToDoRepository toDoRepository;
+    private final LikePostRepository likePostRepository;
 
 
 
@@ -57,22 +56,32 @@ public class PostService {
 
 
     @Transactional(readOnly = true)
-    public List<PostResponseDto> getAllPosts(){
+    public List<PostResponseDto> getAllPosts(User user){
 
         List<Post> postsList = postRepository.findAll();
         List<PostResponseDto> postResponseDtoList = new ArrayList<>();
+
 
         for(Post post : postsList){
 
             List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(post);
             List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
+
+            // Status 확인
+            Optional<LikePost> foundLikeStatus = likePostRepository.findByPostAndUser(post,user);
+            Boolean boolLike = true;
+            if(foundLikeStatus.isEmpty()){
+                boolLike = false;
+            }
+
+
             for(ToDo toDo : toDoList){
                 toDoResponseDtoList.add(new ToDoResponseDto(toDo));
             }
             if(post.getOpen().equals(false)){
                 continue;
             }
-            postResponseDtoList.add(new PostResponseDto(post,toDoResponseDtoList));
+            postResponseDtoList.add(new PostResponseDto(post,boolLike,toDoResponseDtoList));
         }
 
         Collections.reverse(postResponseDtoList);
@@ -81,9 +90,10 @@ public class PostService {
 
     // 카테고리별 일정 조회
     @Transactional
-    public List<PostResponseDto> getCategoriesPosts(Category category){
+    public List<PostResponseDto> getCategoriesPosts(Category category, User user){
         List<Post> postsList = postRepository.findAll();
         List<PostResponseDto> postResponseDtoList = new ArrayList<>();
+
 
         for(Post post : postsList){
 
@@ -94,6 +104,14 @@ public class PostService {
 
             List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(post);
             List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
+
+            // Status 확인
+            Optional<LikePost> foundLikeStatus = likePostRepository.findByPostAndUser(post,user);
+            Boolean boolLike = true;
+            if(foundLikeStatus.isEmpty()){
+                boolLike = false;
+            }
+
             // 카테고리가 들어간 코드인지 판별
             for(ToDo toDo : toDoList){
                 if(!toDo.getCategory().equals(category)){
@@ -107,7 +125,7 @@ public class PostService {
                 for(ToDo toDo : toDoList){
                     toDoResponseDtoList.add(new ToDoResponseDto(toDo));
                 }
-                postResponseDtoList.add(new PostResponseDto(post,toDoResponseDtoList));
+                postResponseDtoList.add(new PostResponseDto(post,boolLike,toDoResponseDtoList));
             }
         }
         // 포스트 List reverse. 최신 포스트가 가장 위로 올라옴

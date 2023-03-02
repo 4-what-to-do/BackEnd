@@ -3,6 +3,7 @@ package com.sparta.todo.controller;
 import com.sparta.todo.dto.SuccessMessageDto;
 import com.sparta.todo.dto.requestDto.Request;
 import com.sparta.todo.dto.requestDto.ToDoRequestDto;
+import com.sparta.todo.dto.responseDto.ToDoOpenResposeDto;
 import com.sparta.todo.dto.responseDto.ToDoResponseDto;
 import com.sparta.todo.security.UserDetailsImpl;
 import com.sparta.todo.service.TodoService;
@@ -29,7 +30,7 @@ public class ToDoController {
 
     // 일정 조회
     @GetMapping("/todo")
-    public List<ToDoResponseDto> readToDo(@RequestParam String date, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public List<ToDoOpenResposeDto> readToDo(@RequestParam String date, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return todoService.readToDo(date, userDetails.getUser());
     }
 

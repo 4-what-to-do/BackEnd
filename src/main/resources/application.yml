@@ -5,18 +5,17 @@ spring:
     #url: jdbc:mysql://database-1.camc1lkeqcmr.ap-northeast-2.rds.amazonaws.com:3306/database1
     url: jdbc:mysql://localhost:3306/todo?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: demian130a
-#    url: jdbc:mysql://localhost:3306/selectshop?serverTimezone=UTC&characterEncoding=UTF-8
-#    username: root
-#    password: 661213bb
+    password:
 
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     generate-ddl: true
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         # show_sql: true
         format_sql: true
   mvc:
@@ -26,7 +25,7 @@ spring:
 
 #logging.level:
 #  org.hibernate.SQL: debug
-# org.hibernate.type: trace
+ #org.hibernate.type: trace
 
 jwt:
   secret:

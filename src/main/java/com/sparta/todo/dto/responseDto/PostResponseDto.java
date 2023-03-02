@@ -27,12 +27,12 @@ public class PostResponseDto {
         this.likeCount = postEntity.getLikeCount();
     }
 
-    public PostResponseDto(Post postEntity, List<ToDoResponseDto> toDoResponseDtoList){
+    public PostResponseDto(Post postEntity, Boolean boolLike, List<ToDoResponseDto> toDoResponseDtoList){
         this.postId = postEntity.getId();
         this.nickname = postEntity.getUser().getNickname();
         this.date = postEntity.getDate();
         this.open = postEntity.getOpen();
-        this.likeStatus = postEntity.getLikeStatus();
+        this.likeStatus = boolLike;
         this.likeCount = postEntity.getLikeCount();
         this.toDoResponseDtoList = toDoResponseDtoList;
     }

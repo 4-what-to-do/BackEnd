@@ -40,10 +40,7 @@ public class ToDo {
     }
 
     public void updateDone(Boolean doneC){
-        if(doneC == true)
-            this.done = false;
-        else
-            this.done = true;
+        this.done = doneC;
     }
 
     public void update(ToDoRequestDto toDoRequestDto){

@@ -4,6 +4,7 @@ package com.sparta.todo.service;
 import com.sparta.todo.dto.SuccessMessageDto;
 import com.sparta.todo.dto.requestDto.Request;
 import com.sparta.todo.dto.requestDto.ToDoRequestDto;
+import com.sparta.todo.dto.responseDto.ToDoOpenResposeDto;
 import com.sparta.todo.dto.responseDto.ToDoResponseDto;
 import com.sparta.todo.entity.Post;
 import com.sparta.todo.entity.ToDo;
@@ -73,7 +74,7 @@ public class TodoService {
 
     // 일정 전체 조회
     @Transactional
-    public List<ToDoResponseDto> readToDo(String date, User user){
+    public List<ToDoOpenResposeDto> readToDo(String date, User user){
 
         Optional<Post> post = postRepository.findByDateAndUser(date, user);
         if(post.isEmpty())
@@ -81,12 +82,12 @@ public class TodoService {
 
         List<ToDo> toDoList = toDoRepository.findAllByPostOrderById(post.get());
 
-        List<ToDoResponseDto> toDoResponseDtoList = new ArrayList<>();
+        List<ToDoOpenResposeDto> toDoOpenResponseDtoList = new ArrayList<>();
 
         for(ToDo toDo : toDoList){
-            toDoResponseDtoList.add(new ToDoResponseDto(toDo));
+            toDoOpenResponseDtoList.add(new ToDoOpenResposeDto(toDo));
         }
-        return toDoResponseDtoList;
+        return toDoOpenResponseDtoList;
     }
 
 

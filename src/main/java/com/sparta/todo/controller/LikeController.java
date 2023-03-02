@@ -17,6 +17,4 @@ public class LikeController {
     public PostResponseDto LikePost(@PathVariable Long postId, @RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return likeService.likePost(postId,postRequestDto, userDetails.getUser());
     }
-
-
 }

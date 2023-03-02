@@ -1,7 +1,6 @@
 package com.sparta.todo.security;
 
 import com.sparta.todo.entity.User;
-import com.sparta.todo.entity.UserRoleEnum;
 import com.sparta.todo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
